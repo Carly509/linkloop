@@ -2,6 +2,9 @@ const router = require('express').Router();
 const authRoutes = require('./auth');
 const userRoutes = require('./users');
 const profileRoutes = require('./profiles');
+const commentRoutes = require('./commentRoutes');
+const postRoutes = require ('./postRoutes')
+
 
 // Import Swagger if applicable
 router.use('/', require('./swagger'));
@@ -16,5 +19,7 @@ router.get('/', (req, res) => {
 router.use('/auth', authRoutes);
 router.use('/users', userRoutes);
 router.use('/profiles', profileRoutes);
+router.use('/posts', postRoutes);
+router.use('/comments', commentRoutes);
 
 module.exports = router;

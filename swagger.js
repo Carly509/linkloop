@@ -4,7 +4,7 @@ const doc = {
     info: {
         title: 'LinkLoop',
         version: '1.0.0',
-        description: 'API documentation for authentication, user, and profile management.',
+        description: 'API documentation for authentication, user, profile, post, and comment management.',
     },
     host: 'localhost:3001',
     schemes: ['http'],
@@ -23,6 +23,14 @@ const doc = {
             name: 'Profiles',
             description: 'Operations related to user profiles',
         },
+        {
+            name: 'Posts',
+            description: 'Operations related to posts',
+        },
+        {
+            name: 'Comments',
+            description: 'Operations related to comments',
+        }
     ],
     securityDefinitions: {
         bearerAuth: {
@@ -126,12 +134,62 @@ const doc = {
                     example: 'https://example.com/avatar.jpg'
                 }
             }
+        },
+        Post: {
+            type: 'object',
+            properties: {
+                _id: { type: 'string', example: '507f1f77bcf86cd799439021' },
+                content: { type: 'string', example: 'This is a post.' },
+                author: { type: 'string', example: '507f1f77bcf86cd799439011' },
+                createdAt: { type: 'string', example: '2025-06-15T14:57:00.000Z' }
+            }
+        },
+        PostCreateRequest: {
+            type: 'object',
+            required: ['content'],
+            properties: {
+                content: { type: 'string', example: 'This is a new post.' }
+            }
+        },
+        PostUpdateRequest: {
+            type: 'object',
+            properties: {
+                content: { type: 'string', example: 'Updated post content.' }
+            }
+        },
+        Comment: {
+            type: 'object',
+            properties: {
+                _id: { type: 'string', example: '507f1f77bcf86cd799439031' },
+                content: { type: 'string', example: 'Nice post!' },
+                post: { type: 'string', example: '507f1f77bcf86cd799439021' },
+                author: { type: 'string', example: '507f1f77bcf86cd799439011' },
+                createdAt: { type: 'string', example: '2025-06-15T15:00:00.000Z' }
+            }
+        },
+        CommentCreateRequest: {
+            type: 'object',
+            required: ['content', 'postId'],
+            properties: {
+                content: { type: 'string', example: 'Great post!' },
+                postId: { type: 'string', example: '507f1f77bcf86cd799439021' }
+            }
+        },
+        CommentUpdateRequest: {
+            type: 'object',
+            properties: {
+                content: { type: 'string', example: 'Updated comment.' }
+            }
         }
     }
 };
 
 const outputFile = './swagger_output.json';
-const endpointsFiles = ['./routes/index.js']; // Update this path to your main routes file
+const endpointsFiles = [
+    './routes/index.js',
+    './routes/postRoutes.js',
+    './routes/commentRoutes.js'
+];
 
 // Generate swagger.json
 swaggerAutogen(outputFile, endpointsFiles, doc).then(() => {
