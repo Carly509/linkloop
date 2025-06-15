@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "description": "API documentation for authentication, user, and profile management."
   },
-  "host": "localhost:3001",
+  "host": "linkloop-ync6.onrender.com",
   "basePath": "/",
   "tags": [
     {
@@ -22,11 +22,11 @@
     }
   ],
   "schemes": [
-    "http"
+    "https"
   ],
   "securityDefinitions": {
     "bearerAuth": {
-      "type": "http",
+      "type": "https",
       "scheme": "bearer",
       "bearerFormat": "JWT",
       "in": "header",
